@@ -3,8 +3,10 @@
 import sys
 import time
 import rospy
+from std_msgs.msg import Float32MultiArray
 import Adafruit_PCA9685
-
+data_received_time=None
+data=None
 def set_servo_pulse_all(pwm, pulse):
     for channel in range(16):
         set_servo_pulse(pwm,channel,pulse)
@@ -21,10 +23,14 @@ def calibrate(pwm,low,high):
     print("setting low")
     set_servo_pulse_all(pwm,low)
     print("set low, should be done")
-
+def cb(msg):
+    global data_received_time, data
+    data_received_time=time.time()
+    data=msg.data
 def main():
     low = 1000
     high = 2000
+    SCALAR= 65
     pwm = Adafruit_PCA9685.PCA9685()
     pwm.set_pwm_freq(60)
     set_servo_pulse_all(pwm,700)
@@ -35,19 +41,20 @@ def main():
     # sys.exit(0)
     print("let's try")
     #1035 is lowest it responds
-    try:
-        for i in range(100):
-            set_servo_pulse_all(pwm,1030+i)
-            time.sleep(.001)
-            raw_input(".")
-            print("i=%d"%i)
-
-    except:
-        pass
+    sub = rospy.Subscriber('motor_control', Float32MultiArray, cb)
+    rospy.init_node('QX7_Pub', anonymous=True)
+    rate = rospy.Rate(60) # 10hz
+    while not rospy.is_shutdown():
+        data_age=time.time()-data_received_time
+        if data_age>.5:
+            set_servo_pulse_all(pwm,700)
+            continue;
+        try:
+            for (channel,val) in enumerate(data):
+                set_servo_pulse(pwm,channel,1035+val*SCALAR)
+        except:
+            pass
     set_servo_pulse_all(pwm,700)
-
-
-
 
 if __name__ == "__main__":
     main()
