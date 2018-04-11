@@ -1,0 +1,6 @@
+<launch>
+  
+  <node name="qx7_ros_publisher" pkg="hovercraft_control" type="qx7_to_ros.py">
+  </node>
+
+</launch>
