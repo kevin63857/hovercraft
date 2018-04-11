@@ -38,7 +38,7 @@ def main():
         imumsg.linear_acceleration.x = lax
         imumsg.linear_acceleration.y = lay
         imumsg.linear_acceleration.z = laz
-        rospy.loginfo(imumsg)
+        #rospy.loginfo(imumsg)
         imupub.publish(imumsg)
         rate.sleep()
 
