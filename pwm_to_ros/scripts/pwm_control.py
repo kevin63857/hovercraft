@@ -30,12 +30,15 @@ def cb(msg):
     data_received_time=time.time()
 
 def main():
+    disarmed_low = 700
     low = 1000
+    min_spin_value = 1050 #1035 before. this value is lowest us timing to get all motors spinning
     high = 2000
-    SCALAR= 65
+    # SCALAR= 65 #limits to 1100, for now
+    SCALAR= 150 #limits to 1200, for now
     pwm = Adafruit_PCA9685.PCA9685()
     pwm.set_pwm_freq(60)
-    set_servo_pulse_all(pwm,700)
+    set_servo_pulse_all(pwm,disarmed_low)
     #print("okay, you have 5, connect battery")
     # time.sleep(5)
     #raw_input("ready to go?")
@@ -50,14 +53,14 @@ def main():
         data_age=time.time()-data_received_time
         if data_age>.5:
             #rospy.loginfo("No recent data, setting all motors to 700")
-            set_servo_pulse_all(pwm,700)
+            set_servo_pulse_all(pwm,disarmed_low)
             continue;
         try:
             for (channel,val) in enumerate(data):
                 #rospy.loginfo("setting motor "+str(channel)+" to "+str(1035+val*SCALAR))
-                set_servo_pulse(pwm,channel,1035+val*SCALAR)
+                set_servo_pulse(pwm,channel,min_spin_value+val*SCALAR)
         except:
             pass
-    set_servo_pulse_all(pwm,700)
+    set_servo_pulse_all(pwm,disarmed_low)
 if __name__ == "__main__":
     main()
