@@ -3,8 +3,8 @@
   <node name="pwm_control" pkg="pwm_to_ros" type="pwm_control.py">
   </node>
 
-  <node name="qx7_control" pkg="hovercraft_control" type="qx7_control.py">
-  </node>
+  <!--<node name="qx7_control" pkg="hovercraft_control" type="qx7_control.py">
+  </node>-->
 
   <node name="imu_publisher" pkg="bno055_to_ros" type="run.py">
   </node>
