@@ -34,6 +34,6 @@ def cb(msg):
 
 if __name__ == '__main__':
     pub = rospy.Publisher('motor_control', Float32MultiArray, queue_size=10)
-    sub = rospy.Subscriber('QX7', Joy, cb)
     rospy.init_node('QX7_Controller', anonymous=True)
+    sub = rospy.Subscriber('QX7', Joy, cb)
     rospy.spin()
