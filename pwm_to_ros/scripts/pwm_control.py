@@ -32,10 +32,10 @@ def cb(msg):
 def main():
     disarmed_low = 700
     low = 1000
-    min_spin_value = 1050 #1035 before. this value is lowest us timing to get all motors spinning
+    min_spin_value = 1040 #1035 before. this value is lowest us timing to get all motors spinning
     high = 2000
     # SCALAR= 65 #limits to 1100, for now
-    SCALAR= 150 #limits to 1200, for now
+    SCALAR= 460 #limits to 1200, for now
     pwm = Adafruit_PCA9685.PCA9685()
     pwm.set_pwm_freq(60)
     set_servo_pulse_all(pwm,disarmed_low)
@@ -58,7 +58,10 @@ def main():
         try:
             for (channel,val) in enumerate(data):
                 #rospy.loginfo("setting motor "+str(channel)+" to "+str(1035+val*SCALAR))
-                set_servo_pulse(pwm,channel,min_spin_value+val*SCALAR)
+                if val <= 0:
+                    set_servo_pulse(pwm,channel,disarmed_low)
+                else:
+                    set_servo_pulse(pwm,channel,min_spin_value+val*SCALAR)
         except:
             pass
     set_servo_pulse_all(pwm,disarmed_low)
