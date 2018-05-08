@@ -16,8 +16,8 @@ def cb(msg):
     #return
     lift=(msg.axes[0]+1)/2 #0 to 1
     yaw=(msg.axes[3]/2)#-.5 to .5
-    thrust=(msg.axes[1] if msg.axes[1]>0 else 0)#-1 to 1, but ignore negatives
-    roll=(msg.axes[2]/2)#-.5 to .5
+    thrust=(msg.axes[2] if msg.axes[2]>0 else 0)#-1 to 1, but ignore negatives
+    roll=(msg.axes[1]/2)#-.5 to .5
 
     #set motor values
     front_lift=bound_on_range(lift+yaw)
