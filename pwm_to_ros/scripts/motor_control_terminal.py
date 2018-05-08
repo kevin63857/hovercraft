@@ -20,59 +20,59 @@ def main(screen):
             if c == ord('Q'):
                 raise("Quit!")
             if c == 259: #up arrow
-                motors[1] += .05
-                motors[2] += .05
+                motors[1] += .025
+                motors[2] += .025
                 did = "more thrust forward"
             if c == 258: #down arrow
-                motors[1] -= .05
-                motors[2] -= .05
+                motors[1] -= .025
+                motors[2] -= .025
                 did = "less thrust forward"
             if c == ord('y'):
-                motors[0] += .05
-                motors[3] += .05
+                motors[0] += .025
+                motors[3] += .025
                 did = "more lift"
             if c == ord('h'):
-                motors[0] -= .05
-                motors[3] -= .05
+                motors[0] -= .025
+                motors[3] -= .025
                 did = "less lift"
             if c == ord('!'):
-                motors[0] += .05
+                motors[0] += .025
                 did = "motor 0 up"
             if c == ord('1'):
-                motors[0] -= .05
+                motors[0] -= .025
                 did = "motor 0 down"
 
             if c == ord('@'):
-                motors[1] += .05
+                motors[1] += .025
                 did = "motor 1 up"
             if c == ord('2'):
-                motors[1] -= .05
+                motors[1] -= .025
                 did = "motor 1 down"
 
             if c == ord('#'):
-                motors[2] += .05
+                motors[2] += .025
                 did = "motor 2 up"
             if c == ord('3'):
-                motors[2] -= .05
+                motors[2] -= .025
                 did = "motor 2 down"
 
             if c == ord('$'):
-                motors[3] += .05
+                motors[3] += .025
                 did = "motor 3 up"
             if c == ord('4'):
-                motors[3] -= .05
+                motors[3] -= .025
                 did = "motor 3 down"
             if c == ord('~'):
-                motors[0] += .05
-                motors[1] += .05
-                motors[2] += .05
-                motors[3] += .05
+                motors[0] += .025
+                motors[1] += .025
+                motors[2] += .025
+                motors[3] += .025
                 did = "all up"
             if c == ord('`'):
-                motors[0] -= .05
-                motors[1] -= .05
-                motors[2] -= .05
-                motors[3] -= .05
+                motors[0] -= .025
+                motors[1] -= .025
+                motors[2] -= .025
+                motors[3] -= .025
                 did = "all down"
             screen.addstr(0,0,"Key: %d"%(c))
             screen.addstr(2,0,"did: %s"%(did))
